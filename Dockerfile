@@ -1,13 +1,13 @@
 FROM nginx:1.19.7
 RUN rm /etc/nginx/conf.d/default.conf && \
-cat <<EOF > /etc/nginx/conf.d/server.conf && service nginx restart
+cat <<EOF > /etc/nginx/conf.d/server.conf
 http   {
 
 upstream server_group   {
 
-server your-svc.blue.svc.cluster.local weight=4;
+server nginx-service-blue.blue.svc.cluster.local weight=BLUE-WEIGHT;
 
-server your-svc.green.svc.cluster.local weight=1;
+server nginx-service-green.green.svc.cluster.local weight=GREEN-WEIGHT;
 
 }
 server {
