@@ -18,8 +18,8 @@ log() {
 
 nginx_pid=$!
 
-watches=${NGINX_WATCH_PATHS:-"/etc/nginx/conf.d/server-*.conf"}
-config_file=${NGINX_CONFIG_FILE:-"/etc/nginx/conf.d/server-*.conf"}
+watches=${NGINX_WATCH_PATHS:-"/etc/nginx/conf.d/server.conf"}
+config_file=${NGINX_CONFIG_FILE:-"/etc/nginx/conf.d/server.conf"}
 
 log "setting up watches for ${watches[@]}"
 
