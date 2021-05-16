@@ -1,9 +1,15 @@
-FROM nginx:1.20.0-alpine
-COPY nginx-reload.sh /opt/nginx-reload.sh
-RUN apk update  &&  apk add inotify-tools bash tini && \
-rm /etc/nginx/conf.d/default.conf && \
-chmod +x  /opt/nginx-reload.sh
+FROM nginx:1.11-alpine
 
-ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["/opt/nginx-reload.sh"]
+ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 /usr/local/bin/dumb-init
+RUN chmod +x /usr/local/bin/dumb-init
+ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 
+# install inotify
+RUN apk update && apk add inotify-tools bash
+
+COPY nginx-reload.sh /app/nginx-reload.sh
+RUN chmod +x /app/nginx-reload.sh
+
+EXPOSE 80 8080
+
+CMD ["/app/nginx-reload.sh"]
