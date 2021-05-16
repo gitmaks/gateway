@@ -19,7 +19,7 @@ log() {
 nginx_pid=$!
 
 watches=${NGINX_WATCH_PATHS:-"/etc/nginx/conf.d/server.conf"}
-config_file=${NGINX_CONFIG_FILE:-"/etc/nginx/conf.d/server.conf"}
+config_file=${NGINX_CONFIG_FILE:-"/etc/nginx/nginx.conf"}
 
 log "setting up watches for ${watches[@]}"
 
@@ -33,7 +33,7 @@ log "setting up watches for ${watches[@]}"
     if [ $delta -lt 2 -a $delta -gt -2 ] ; then
       sleep 2  # sleep 1 set to let file operations end
       log "will test config  $config_file"
-      nginx -t -c /etc/nginx/nginx.conf
+      nginx -t -c $config_file
       if [ $? -ne 0 ]; then
         log "new configuration is invalid!!" 1
       else
