@@ -25,7 +25,7 @@ log "setting up watches for ${watches[@]}"
 
 while true
 do
-        inotifywait -e create,modify,delete /etc/nginx/conf.d
+        inotifywait -e create,modify,delete /etc/nginx/conf.d/server.conf
         nginx -t
         if [ $? -eq 0 ]
         then
