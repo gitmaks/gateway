@@ -25,12 +25,14 @@ log "setting up watches for ${watches[@]}"
 
 while true
 do
-        inotifywait -e create,modify,delete /etc/nginx/conf.d/server.conf
-        nginx -t
+        inotifywait -e create,modify,delete ${watches[@]}
+        nginx -t -c $config_file
         if [ $? -eq 0 ]
         then
-                echo 'whoray'
+                log 'new configuration file is valid, reloading nginx'
                 nginx -s reload
+	else
+		logs 'new configuration is invalid!'
         fi
 done
 
