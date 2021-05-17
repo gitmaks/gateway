@@ -32,7 +32,7 @@ do
                 log 'new configuration file is valid, reloading nginx'
                 nginx -s reload
 	else
-		logs 'new configuration is invalid!'
+		log 'new configuration is invalid!'
         fi
 done
 
