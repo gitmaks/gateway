@@ -6,4 +6,3 @@ chmod +x  /opt/nginx-reload.sh
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["/opt/nginx-reload.sh"]
-
